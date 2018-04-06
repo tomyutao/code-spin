@@ -15,6 +15,10 @@
         "onCommand:spin.random",
         "onCommand:spin.run"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tomyutao/code-spin.git"
+    },
     "main": "./out/extension",
     "contributes": {
         "commands": [{
