@@ -3,7 +3,7 @@
     "displayName": "code-spin",
     "description": "SPIN runner of vscode",
     "version": "0.0.1",
-    "publisher": "autoy",
+    "publisher": "TaoYu",
     "engines": {
         "vscode": "^1.21.0"
     },
@@ -11,16 +11,55 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:spin.check",
+        "onCommand:spin.random",
+        "onCommand:spin.run"
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [
-            {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+        "commands": [{
+            "command": "spin.run",
+            "title": "Spin Run",
+            "description": "Run SPIN with -run option"
+        }, {
+            "command": "spin.check",
+            "title": "Spin Check",
+            "description": "Run SPIN with -a option"
+        }, {
+            "command": "spin.random",
+            "title": "Spin Random",
+            "description": "Run random checker with random option"
+        }],
+        "configuration": {
+            "title": "SPIN configuration",
+            "properties": {
+                "spin.path": {
+                    "type": "string",
+                    "default": "/usr/local/bin/spin",
+                    "description": "The path of the SPIN executions"
+                },
+                "spin.random": {
+                    "type": "string",
+                    "default": "-g -l -p -r -s -X  -u250",
+                    "description": "The option to run random command in spin"
+                },
+                "spin.checkOnSave": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "The option to run check when saving file"
+                },
+                "spin.onSaveCommand": {
+                    "type": "string",
+                    "enum": [
+                        "check",
+                        "random",
+                        "run"
+                    ],
+                    "default": "check",
+                    "description": "Which command you want to run when saving"
+                }
             }
-        ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
