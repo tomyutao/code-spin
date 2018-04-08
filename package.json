@@ -2,8 +2,8 @@
     "name": "code-spin",
     "displayName": "code-spin",
     "description": "SPIN runner of vscode",
-    "version": "0.0.1",
-    "publisher": "TaoYu",
+    "version": "0.0.2",
+    "publisher": "taoyu",
     "engines": {
         "vscode": "^1.21.0"
     },

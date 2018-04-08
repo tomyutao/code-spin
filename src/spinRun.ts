@@ -6,7 +6,7 @@ import cp = require('child_process');
 let output = vscode.window.createOutputChannel("Spin");
 
 export function spinRun(args: string | undefined) {
-  if (args === undefined) {
+  if (!args) {
     return;
   }
 
@@ -29,7 +29,13 @@ export function spinRun(args: string | undefined) {
   output.clear();
   output.show();
   output.appendLine(spin + " " + args + " " + documentUri);
-  cp.execFile(spin, [args, documentUri], {}, (err, stdout, stderr) => {
+  let folder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+  if (!folder) {
+    vscode.window.showErrorMessage("No opened message");
+    return;
+  }
+
+  cp.execFile(spin, [args, documentUri], { cwd: folder.name, maxBuffer: 1024 * 1024 }, (err, stdout, stderr) => {
     if (err && (<any>err).code === "ENOENT") {
       vscode.window.showInformationMessage("SPIN not found");
       return;
@@ -41,5 +47,6 @@ export function spinRun(args: string | undefined) {
       return;
     }
     output.appendLine(stdout);
+    output.appendLine(stderr);
   });
 }
